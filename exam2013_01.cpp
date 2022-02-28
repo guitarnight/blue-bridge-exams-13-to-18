@@ -11,7 +11,7 @@ class Date{
 			mon(3),
 			day(30){};
 			void add(int num){
-				for(int i=1; i<num; i++){				//���һ�� 
+				for(int i=1; i<num; i++){				//出生算一天，计数少一天 
 					if(year %4 == 0 && year%400 != 0){
 						days[1] = 29;
 					}else{
