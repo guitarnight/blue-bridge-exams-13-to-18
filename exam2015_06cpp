@@ -1,0 +1,66 @@
+#include <iostream>
+#include <string.h>
+#include <string>
+using namespace std;
+int ans = 0;
+void func(int kind, int count){
+	//最多13层 
+	if (kind >13 || count >13){	
+		return;
+	}
+	//不管几种，每种必定少于5张，一共集齐13张 ，《不考虑顺序》 
+	if (count ==13){
+		ans++;
+		return;
+	}
+	for(int i=0; i<=4; i++){
+		func(kind+1, count+i);
+	}
+}
+int main(){
+	func(0,0);
+	cout << ans << endl;
+	return 0;
+}
+//以下既考虑顺序，本身分支和层数又多，是错误答案
+#include <iostream>
+#include <string>
+#include <string.h>
+#include <sstream>
+#include <algorithm>
+#include <set>
+using namespace std;
+int ans = 0;
+set<string> st;
+string i2s(int i){
+	stringstream ss;
+	ss << i;
+	string s;
+	ss >> s;
+	return s;
+}
+void func(int count, int* card, string s){
+    if (count==13){
+        //next_permutation(s.begin(), s.end());
+        //st.insert(s);
+        ans++;
+		return;
+    }
+
+    for(int i=0; i<13; i++){
+        if (card[i] <4 ){
+        	card[i]++;
+            func(count+1, card, s+i2s(i));
+            card[i]--;
+        }
+    }
+
+}
+int main(){
+    int card[13] = {0};
+    memset(card,0,sizeof(card));
+    func(0,card,"");
+    //cout << st.size() <<endl;
+    cout << ans <<endl;
+	return 0;
+}
